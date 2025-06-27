@@ -10,16 +10,53 @@
       background-size: cover;
       background-position: center;
     }
+
+    .cat-strip {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+    }
+
+    .cat-strip img {
+      width: 60px;
+      height: auto;
+      animation: floatUpDown 3s ease-in-out infinite;
+    }
+
+    .cat-strip img:nth-child(2) { animation-delay: 0.2s; }
+    .cat-strip img:nth-child(3) { animation-delay: 0.4s; }
+    .cat-strip img:nth-child(4) { animation-delay: 0.6s; }
+    .cat-strip img:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
   </style>
 </head>
-<body class="flex items-center justify-center h-screen bg-black bg-opacity-40">
+<body class="flex items-center justify-center h-screen bg-black bg-opacity-40 relative">
+
+  <!-- 左上猫猫 -->
+  <div class="cat-strip">
+    <img src="{{ url_for('static', filename='cat.jpg') }}" alt="cat1">
+    <img src="{{ url_for('static', filename='cat2.jpg') }}" alt="cat2">
+    <img src="{{ url_for('static', filename='cat3.jpg') }}" alt="cat3">
+    <img src="{{ url_for('static', filename='cat4.jpg') }}" alt="cat4">
+    <img src="{{ url_for('static', filename='cat5.jpg') }}" alt="cat5">
+  </div>
+
+  <!-- 登录框 -->
   <div class="bg-white bg-opacity-90 p-10 rounded-3xl w-80 shadow-xl">
     <h2 class="text-2xl font-bold text-center mb-6">登录图像检索系统</h2>
     {% if error %}<p class="text-red-500 mb-4">{{ error }}</p>{% endif %}
     <form method="POST">
       <input name="username" placeholder="用户名" class="w-full mb-4 p-2 border rounded" required>
       <input name="password" type="password" placeholder="密码" class="w-full mb-4 p-2 border rounded" required>
-      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">登录</button>
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">登录</button>
     </form>
     <p class="text-center mt-4 text-sm text-gray-600">没有账号？<a href="/register" class="text-blue-500 underline">注册</a></p>
   </div>
