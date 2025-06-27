@@ -1,6 +1,6 @@
 ## 1.下载数据集到static/image_database下
 
-├── static
+>├── static
 │   ├── feature_database
 │   ├── image_database
 │   │   ├── lion
