@@ -48,7 +48,7 @@ def index():
     if request.method == 'POST':
         file = request.files['query_img']
         method = request.form.get('method')  # 检索方式
-        if file and method in ['color', 'texture', 'shape']:
+        if file and method in ['color', 'texture', 'shape','hog']:
             # 保存上传图像
             img = Image.open(file.stream).convert('RGB')
             img = img.resize((224, 224))

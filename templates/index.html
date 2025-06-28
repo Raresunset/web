@@ -107,6 +107,9 @@
         .btn-group button:nth-child(3) {
             background: #99ff99;
         }
+        .btn-group button:nth-child(4) {
+            background: #ffcc66;  /* 新增按钮颜色 */
+        }
 
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
@@ -175,6 +178,7 @@
                 <button type="submit" name="method" value="color">利用颜色检索</button>
                 <button type="submit" name="method" value="texture">利用纹理检索</button>
                 <button type="submit" name="method" value="shape">利用形状检索</button>
+                <button type="submit" name="method" value="hog">利用HoG特征检索</button>
             </div>
         </form>
 
