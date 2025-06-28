@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
-from PIL import Image
+from PIL import (Image)
 import os
 import numpy as np
 import datetime
@@ -9,6 +9,10 @@ from feature_extractor import FeatureExtractor
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+root_image_path = "./static/image_database/"
+root_feature_path = "./static/feature_database/"
+upload_path = "./static/image_uploaded/"
 
 fe = FeatureExtractor()
 users = {'user': '1234'}  # 简单用户数据库
@@ -101,3 +105,38 @@ def index():
                                    show_scores=show_scores)
 
     return render_template("index.html")
+
+
+
+
+
+def initialize_features():
+    """初始化特征数据库"""
+    imgs_feature = []
+    paths_feature = []
+
+    for folder in os.listdir(root_image_path):
+        path = os.path.join(root_image_path, folder)
+        print(f"Processing folder: {path}")
+        # images_np, images_path = folder_to_images(path)
+        # paths_feature.extend(images_path)
+        # imgs_feature.extend(fe.extract(images_np))
+
+    # 保存合并后的特征
+    os.makedirs(root_feature_path, exist_ok=True)
+    np.savez_compressed(os.path.join(root_feature_path, "concat_all_feature"),
+                        array_1=np.array(paths_feature),
+                        array_2=np.array(imgs_feature))
+
+
+if __name__ == '__main__':
+    # 检查是否需要初始化特征数据库
+    if not os.path.exists(os.path.join(root_feature_path, "concat_all_feature.npz")):
+        print("Initializing feature database...")
+        initialize_features()
+
+    # 确保上传目录存在
+    os.makedirs(upload_path, exist_ok=True)
+
+    # 启动Flask应用
+    app.run(host='0.0.0.0', port=5000, debug=True)
